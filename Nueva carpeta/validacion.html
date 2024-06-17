@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMPIRE WOMENN</title>
+    <link rel="stylesheet" href="validacion.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            position: relative; 
+        }
+
+        header {
+            background-color: #000000; 
+            color: #fff;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; 
+        }
+
+        .logo-empresa {
+            margin-left: 5px; 
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-right: 5px; 
+        }
+
+        .search-bar input[type="text"] {
+            width: 200px; 
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #000000; 
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .search-bar button:hover {
+            background-color: #333; 
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        
+        .catalogo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .articulo {
+            width: 300px;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .articulo img {
+            width: 100%; 
+            height: 250px; 
+            object-fit: cover; 
+            border-bottom: 1px solid #ddd;
+        }
+
+        .articulo h2 {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #000000;
+            text-align: center; 
+        }
+
+        .articulo p {
+            margin: 10px 0;
+            color: #777; 
+            text-align: center; 
+        }
+
+        .articulo button {
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block; 
+            margin: 0 auto; 
+            margin-bottom: 10px;
+        }
+
+        .articulo button:hover {
+            background-color: #fa0808;
+        }
+
+        
+        .whatsapp-boton {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+            background-color: #00ff55; 
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000; 
+        }
+
+        .whatsapp-boton img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .whatsapp-boton:hover {
+            background-color: #1EBE57; 
+        }
+
+       
+        .carrito-compras {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            background-color: #ffffff; 
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000; 
+        }
+
+        .carrito-compras a {
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .carrito-compras img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .carrito-compras img:hover {
+            transform: scale(1.1); 
+        }
+
+        .talla-select {
+            display: block;
+            margin: 10px auto;
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-empresa">
+            <h1>EMPIRE WOMENN</h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="input-busqueda" placeholder="Buscar...">
+            <button onclick="buscarArticulos()">Buscar</button>
+        </div>
+    </header>
+    
+    <div class="carrusel">
+        <img src="img/busto jpg.jpg" alt="Imagen 1" class="active">
+        <img src="img/vestido blanco jpg.jpg" alt="Imagen 2">
+        <img src="img/vestido negro jpg.jpg" alt="Imagen 3">
+    </div>
+
+
+<div clas="carrito-compras">
+    <a href="carrito.html"></a>
+    <img src="img/cart-download-regular-24.png" alt="">
+
+</div>
+
+    <main>
+        <section class="catalogo">
+            <div class="articulo">
+                <img src="img/1.jpg" alt="Vestido Negro">
+                <h2>VESTIDOS</h2>
+                <p>Descripción corta del artículo 1...</p>
+                <p>Precio: $300.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Negro', 300000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/2.jpg" alt="Busto">
+                <h2>TOPS</h2>
+                <p>Descripción corta del artículo 2...</p>
+                <p>Precio: $500.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Busto', 500000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/3.jpg" alt="Vestido Blanco">
+                <h2>VESTIDOS 2</h2>
+                <p>Descripción corta del artículo 3...</p>
+                <p>Precio: $350.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Blanco', 350000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/4.jpg" alt="Vestido Azul">
+                <h2>VESTIDOS</h2>
+                <p>Descripción corta del artículo 4...</p>
+                <p>Precio: $400.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Azul', 400000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/5.jpg" alt="Vestido Rosado">
+                <h2>VESTIDOS 3</h2>
+                <p>Descripción corta del artículo 5...</p>
+                <p>Precio: $450.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Rosado', 450000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/6.jpg" alt="Busto">
+                <h2>TOPS</h2>
+                <p>Descripción corta del artículo 6...</p>
+                <p>Precio: $320.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Busto', 320000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/7.jpg" alt="Vestido Negro">
+                <h2>VESTIDOS</h2>
+                <p>Descripción corta del artículo 7...</p>
+                <p>Precio: $300.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Negro', 300000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/8.jpg" alt="Vestido Blanco">
+                <h2>VESTIDOS 2</h2>
+                <p>Descripción corta del artículo 8...</p>
+                <p>Precio: $350.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Blanco', 350000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/9.jpg" alt="Vestido Blanco">
+                <h2>VESTIDOS 2</h2>
+                <p>Descripción corta del artículo 9...</p>
+                <p>Precio: $350.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Blanco', 350000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/10.jpg" alt="Vestido Blanco">
+                <h2>VESTIDOS 2</h2>
+                <p>Descripción corta del artículo 9...</p>
+                <p>Precio: $350.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Blanco', 350000, this)">Agregar al Carrito</button>
+            </div>
+            
+
+            <div class="articulo">
+                <img src="img/11.jpg" alt="Vestido Blanco">
+                <h2>VESTIDOS 2</h2>
+                <p>Descripción corta del artículo 9...</p>
+                <p>Precio: $350.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Blanco', 350000, this)">Agregar al Carrito</button>
+            </div>
+
+            <div class="articulo">
+                <img src="img/12.jpg" alt="Vestido Blanco">
+                <h2>VESTIDOS</h2>
+                <p>Descripción corta del artículo 12...</p>
+                <p>Precio: $350.000</p>
+                <select class="talla-select">
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+                <button onclick="agregarAlCarrito('Vestido Blanco', 350000)">Agregar al Carrito</button>
+            </div>
+            
+            
+            
+            
+            
+        </section>
+    </main>
+
+    <a href="#" class="whatsapp-boton" onclick="enviarCarritoWhatsApp()">
+        <img src="img/whatsapp-logo-24.png" alt="WhatsApp">
+    </a>
+
+    <div class="carrito-compras">
+        <a href="carrito.html">
+            <img src="img/cart-download-regular-24.png" alt="Carrito de Compras">
+        </a>
+    </div>
+
+    <script>
+        let carrito = [];
+
+        function buscarArticulos() {
+            const inputBusqueda = document.getElementById('input-busqueda');
+            const termino = inputBusqueda.value.trim().toUpperCase(); 
+
+            const articulos = document.querySelectorAll('.articulo');
+
+            articulos.forEach(articulo => {
+                const nombreArticulo = articulo.querySelector('h2').textContent.toUpperCase();
+
+                if (nombreArticulo.includes(termino)) {
+                    articulo.style.display = 'block'; 
+                } else {
+                    articulo.style.display = 'none'; 
+                }
+            });
+        }
+
+        function agregarAlCarrito(nombre, precio, button) {
+            let talla = button.previousElementSibling.value;
+            carrito.push({ nombre, precio, talla });
+        }
+        function enviarCarritoWhatsApp() {
+        const numeroTelefono = '+573026013946'; 
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        
+        if (carrito.length === 0) {
+            alert('El carrito está vacío. Agrega productos antes de proceder.');
+            return;
+        }
+
+        let mensaje = 'Hola, estoy interesado en los siguientes artículos:\n\n';
+        let total = 0;
+
+    carrito.html.forEach((articulo, index) => {
+        mensaje += `${index + 1}. ${articulo.nombre} - Talla: ${articulo.talla} - Precio: $${articulo.precio.toLocaleString()}\n`;
+        total += articulo.precio;
+    });
+
+    mensaje += `\nTotal: $${total.toLocaleString()}`;
+
+    let url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+}
+
+
+
+        document.querySelector('.search-bar button').addEventListener('click', function(event) {
+            event.preventDefault(); 
+            buscarArticulos(); 
+        });
+
+
+        
+    </script>
+
+    <script src="carrito.js"></script>
+ 
+
+</body>

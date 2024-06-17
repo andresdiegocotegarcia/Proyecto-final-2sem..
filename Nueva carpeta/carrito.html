@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #000000;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .producto {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .producto p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .nombre-producto {
+            font-weight: bold;
+        }
+
+        .precio {
+            color: #666;
+        }
+
+        .acciones {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .acciones button {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .acciones button:hover {
+            background-color: #cc0000;
+        }
+
+        .acciones a {
+            background-color: #25D366;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            text-align: center;
+            display: block;
+            width: fit-content;
+            margin-top: 10px;
+        }
+
+        .acciones a:hover {
+            background-color: #128C7E;
+        }
+
+        .total {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        
+        #carrito {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .carrito-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        .item-carrito {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .eliminar-item {
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .eliminar-item:hover {
+            background-color: #cc0000;
+        }
+
+        #total-carrito {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Carrito de Compras</h1>
+    </header>
+
+    <div class="container">
+        <div id="lista-carrito">
+          
+        </div>
+
+        <div class="total">
+            <h3>Total: <span id="total-carrito">$0.00</span></h3>
+        </div>
+
+        <div class="acciones">
+            <a href="#" onclick="enviarPorWhatsApp()">Pagar por WhatsApp</a>
+            
+        </div>
+    </div>
+
+   
+    <div id="carrito">
+        <div class="carrito-container">
+            <h2>Carrito de Compras</h2>
+            <div id="carrito-contenido">
+               
+            </div>
+            <div class="total">
+                <h3>Total: <span id="total-carrito-modal">$0.00</span></h3>
+            </div>
+            <button onclick="cerrarCarrito()">Cerrar Carrito</button>
+            <button onclick="vaciarCarrito()">Vaciar Carrito</button>
+        </div>
+    </div>
+
+    <script>
+        let carrito = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarCarritoDesdeLocalStorage();
+        });
+
+        function cargarCarritoDesdeLocalStorage() {
+            if (localStorage.getItem('carrito')) {
+                carrito = JSON.parse(localStorage.getItem('carrito'));
+                actualizarCarrito();
+            }
+        }
+
+        function guardarCarritoEnLocalStorage() {
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+        }
+
+        function agregarAlCarrito(nombre, precio) {
+            const item = {
+                nombre: nombre,
+                precio: precio,
+                
+                v
+            };
+
+            carrito.push(item);
+            guardarCarritoEnLocalStorage();
+            actualizarCarrito();
+        }
+
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            guardarCarritoEnLocalStorage();
+            actualizarCarrito();
+        }
+
+        function actualizarCarrito() {
+            const carritoContenido = document.getElementById('carrito-contenido');
+            carritoContenido.innerHTML = '';
+
+            let total = 0;
+
+            carrito.forEach((articulo, index) => {
+                const { nombre, precio } = articulo;
+                total += precio;
+
+                const itemHTML = `
+                    <div class="item-carrito">
+                        <span>${nombre}</span>
+                        <span>$${precio.toFixed(2)}</span>
+                        <button class="eliminar-item" onclick="eliminarDelCarrito(${index})">Eliminar</button>
+                    </div>
+                `;
+
+                carritoContenido.innerHTML += itemHTML;
+            });
+
+            document.getElementById('total-carrito').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('total-carrito-modal').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function enviarPorWhatsApp() {
+            if (carrito.length === 0) {
+                alert('El carrito está vacío. Agrega productos antes de proceder.');
+                return;
+            }
+
+            let mensaje = 'Hola, quiero comprar los siguientes artículos:\n\n';
+
+            carrito.forEach((producto) => {
+                mensaje += `${producto.nombre} - Precio: $${producto.precio.toFixed(2)}\n`;
+            });
+
+            mensaje = encodeURIComponent(mensaje);
+            const whatsappURL = `https://wa.me/+573026013946?text=${mensaje}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        
+        function abrirCarrito() {
+            document.getElementById('carrito').style.display = 'flex';
+        }
+
+       
+        function cerrarCarrito() {
+            document.getElementById('carrito').style.display = 'none';
+        }
+
+       
+        function vaciarCarrito() {
+            carrito = [];
+            guardarCarritoEnLocalStorage();
+            actualizarCarrito();
+        }
+    </script>
+    <script src="carrito.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    cargarCarrito();
+});
+
+function agregarAlCarrito(nombre, precio, button) {
+    const talla = button.previousElementSibling.value;  
+    const item = {
+        nombre: nombre,
+        precio: precio,
+        talla: talla
+    };
+
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.push(item);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarCarrito();
+}
+
+function actualizarCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const listaCarrito = document.getElementById('lista-carrito');
+    let totalCarrito = 0;
+
+    listaCarrito.innerHTML = ''; 
+
+    carrito.forEach((producto, index) => {
+        const itemCarrito = document.createElement('div');
+        itemCarrito.classList.add('producto');
+        itemCarrito.innerHTML = `
+            <p class="nombre-producto">${producto.nombre} (Talla: ${producto.talla})</p>
+            <p class="precio">$${producto.precio.toFixed(2)}</p>
+            <div class="acciones">
+                <button onclick="eliminarDelCarrito(${index})">Eliminar</button>
+            </div>
+        `;
+        listaCarrito.appendChild(itemCarrito);
+
+        totalCarrito += parseFloat(producto.precio); 
+    });
+
+    actualizarTotal(totalCarrito);
+}
+
+function eliminarDelCarrito(index) {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.splice(index, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarCarrito();
+}
+
+function actualizarTotal(total) {
+    const totalCarritoElement = document.getElementById('total-carrito');
+    totalCarritoElement.textContent = `$${total.toFixed(2)}`;
+}
+
+function enviarPorWhatsApp() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    if (carrito.length === 0) {
+        alert('El carrito está vacío. Agrega productos antes de proceder.');
+        return;
+    }
+
+    let mensaje = 'Hola, quiero comprar los siguientes artículos:\n\n';
+
+    carrito.forEach((producto) => {
+        mensaje += `${producto.nombre} (Talla: ${producto.talla}) - Precio: $${producto.precio.toFixed(2)}\n`;
+    });
+
+    mensaje = encodeURIComponent(mensaje);
+    const whatsappURL = `https://wa.me/+573026013946?text=${mensaje}`;
+    window.open(whatsappURL, '_blank');
+}
+
+function cargarCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const listaCarrito = document.getElementById('lista-carrito');
+    let totalCarrito = 0;
+
+    listaCarrito.innerHTML = ''; 
+
+    carrito.forEach((producto, index) => {
+        const itemCarrito = document.createElement('div');
+        itemCarrito.classList.add('producto');
+        itemCarrito.innerHTML = `
+            <p class="nombre-producto">${producto.nombre} (Talla: ${producto.talla})</p>
+            <p class="precio">$${producto.precio.toFixed(2)}</p>
+            <div class="acciones">
+                <button onclick="eliminarDelCarrito(${index})">Eliminar</button>
+            </div>
+        `;
+        listaCarrito.appendChild(itemCarrito);
+
+        totalCarrito += parseFloat(producto.precio); 
+    });
+
+    actualizarTotal(totalCarrito);
+}
+
+function cargarCarritoDesdeURL() {
+    const params = new URLSearchParams(window.location.search);
+    const carritoJSON = params.get('carrito');
+
+    if (carritoJSON) {
+        const carrito = JSON.parse(decodeURIComponent(carritoJSON));
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    cargarCarrito();
+}
+</script>
+
+
+</body>
+</html>
